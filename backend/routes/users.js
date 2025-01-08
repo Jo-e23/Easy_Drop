@@ -7,29 +7,16 @@ const ObjectId=Schema.ObjectId;
 const VendorSchema = new Schema({
     id:ObjectId,
     createdOn:Date,
-    fullname: String, 
-    phone: Number,
-    email: String,
+    fullname:String, 
+    phone:Number,
+    email:String,
     address:String,
     businessName:String,
     password:String
 });
 const vendorModel = mongoose.model('vendors',VendorSchema); //VendorSchema
 
-/* GET Vendor listing. */
-router.get('/',async function(req, res, next) {
-  try{  
-  let users= await vendorModel.find();
-  console.log(vendors);
-  res.send(vendors);
-  }
-  catch(e){res.send({
-    message:'user list',
-    status:'error',
-    data:[]
-  })
-  }
-});
+
     // create vendors
   router.post('/vendor',async function (req,res,next) {
     try{
@@ -144,10 +131,54 @@ router.get('/',async function(req, res, next) {
       message:"No products available"
     }
   });
+  // order selection
+  const orderSchema = new Schema({
+    id:ObjectId,
+    
+    quantity:{
+      required:true,
+      type:String
+    },
+    price:{
+      required:true,
+      type:Number
+    },
+    productId:{
+      required:true,
+      type:ObjectId,
+      ref:'productModel'
 
+    },
+    categoryId:{
+      required:true,
+      type:ObjectId,
+      ref:'category'
 
+    }
+  })
+  const orderModel = mongoose.model('orders',orderSchema);
 
+  router.post('/orderSelect',async function(req,res,next){
+    try{
+      const orderSelect = await orderModel.create(req.body)
+      console.log(orderSelect);
+      res.send(orderSelect);
+    }
+    catch(er){
+      message:"No order selected"
+    }
+  })
+// get order list by vendor
+router.get('/orders',async function(req,res,next){
+  try{
+    const orders= await orderModel.find()
+    console.log(orders);
+    res.send(orders);
+  }
+  catch(er){
+    message:"No orders available"
+  }
+})
 
-
-  module.exports = router;
+module.exports = router;
 
