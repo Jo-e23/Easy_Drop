@@ -1,23 +1,14 @@
 import { useNavigate } from "react-router";
 const Login =()=>{
-
-
-
     let navigate = useNavigate();
 
 
-    function login()
-   {
-      
-     
+function login()
+  {
        navigate('/Dashboard');
+  }
 
-   }
-
-
-
-
-    return(
+return(
       <>
       <h1>Login</h1>
       <label>Email id :</label>
