@@ -3,6 +3,7 @@ import './App.css'
 import Login from './Login'
 import Signup from './Signup'
 import Dashboard from './Dashboard'
+import Landing from './Components/Landing'
 import { BrowserRouter, Routes, Route } from "react-router";
 
 function App() {
