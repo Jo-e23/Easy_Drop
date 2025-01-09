@@ -20,14 +20,14 @@ const VendorSchema = new Schema({
 const vendorModel = mongoose.model('vendors',VendorSchema); //VendorSchema
 
 /* GET Vendor listing. */
-router.get('/',async function(req, res, next) {
+router.get('/vendorList',async function(req, res, next) {
   try{  
-  let users= await vendorModel.find();
+  let vendors= await vendorModel.find();
   console.log(vendors);
   res.send(vendors);
   }
   catch(e){res.send({
-    message:'user list',
+    message:'vendor list',
     status:'error',
     data:[]
   })
