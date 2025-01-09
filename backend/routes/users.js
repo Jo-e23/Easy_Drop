@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/Vendor_Db').then(()=>console.log('hello JO'));
+mongoose.connect('mongodb://127.0.0.1:27017/Users').then(()=>console.log('hello JO'));
   const Schema = mongoose.Schema;
 const ObjectId=Schema.ObjectId;
 const userSchema = new Schema({
     id:ObjectId,
     createdOn:Date,
-    fullname: String, 
+    username: String, 
     phone: Number,
     email: String,
     password:String
