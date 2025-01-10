@@ -1,7 +1,17 @@
 import React from "react";
 import "./App.css";
+import { useNavigate } from "react-router";
 
 function SignUp() {
+
+  let navigate = useNavigate();
+
+
+  function move()
+    { 
+         navigate('/Dashboard');
+    }
+
   return (
     <div className="signup-form">
       <form action="/examples/actions/confirmation.php" method="post" className="form-horizontal">
@@ -42,7 +52,7 @@ function SignUp() {
                 <a href="#">Privacy Policy</a>.
               </label>
             </p>
-            <button type="submit" className="btn btn-primary btn-lg" name="action" value="user_signup">
+            <button onClick={move}type="submit" className="btn btn-primary btn-lg" name="action" value="user_signup">
               Sign Up
             </button>
             <br></br>
