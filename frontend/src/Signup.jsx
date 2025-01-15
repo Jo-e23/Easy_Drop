@@ -1,14 +1,43 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./App.css";
 import { useNavigate } from "react-router";
+
+let email = useRef('');
+let password =useRef('');
+
 
 function SignUp() {
 
   let navigate = useNavigate();
 
-
+ 
   function move()
+  
     { 
+  
+      const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+const raw = JSON.stringify({
+  "email": email.current.value,
+  "password": password.current.value
+});
+
+const requestOptions = {
+  method: "GET",
+  headers: myHeaders,
+  body: raw,
+  redirect: "follow"
+};
+
+fetch("http://localhost:6000/users", requestOptions)
+  .then((response) => response.json())
+  .then((result) => console.log(result.data))
+  .catch((error) => console.error(error));
+  
+      
+
+     console.log("api",move());
          navigate('/Dashboard');
     }
 

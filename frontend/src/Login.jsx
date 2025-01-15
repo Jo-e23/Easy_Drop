@@ -10,19 +10,28 @@ const Login = () => {
 
   function login()
     { 
-         navigate('/Dashboard');
+      const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+      };
+      
+      fetch("https://fakerapi.it/api/v2/users?_quantity=1&_gender=male", requestOptions)
+        .then((response) => response.json())
+        .then((result) => console.log(result.data))
+        .catch((error) => console.error(error));
+         navigate('/dashboard');
     }
 
 
   return (
     <div className="login-form">
-      <form action="/examples/actions/confirmation.php" method="post">
+      <form  method="post">
         <h2 className="text-center">Log in</h2>
         <div className="form-group">
           <input
             type="text"
             className="form-control"
-            placeholder="Username"
+            placeholder="email"
             required
           />
           <br></br>
