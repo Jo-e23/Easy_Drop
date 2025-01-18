@@ -12,27 +12,13 @@ const userSchema = new Schema({
     email: String,
     address:String,
     businessName:String,
-
     password:String
    
   });
 
   const userModel =mongoose.model("users",userSchema);
 
-  const vendorSchema = new Schema({
-    id:ObjectId,
-    createdOn:Date,
-    username: String, 
-    phone: Number,
-    email: String,
-    address:String,
-    categoryname:String,
-    businessName:String,
-    password:String
-   
-  });
-
-  const vendorModel =mongoose.model("vendors",vendorSchema);
+  
 
 
 //Read Customer API
@@ -70,23 +56,50 @@ router.get('/login', function(req, res, next) {
 });
 
 
-// read category
-router.get('/category', function(req, res, next) {
-  vendorModel.find().then((vendors)=>{
-res.send(vendors);
-  }).catch((e)=>{
-    res.send("Error",e);
-  })
+
+
+
+//Category Schema
+const categorySechema = new Schema({
+  id:ObjectId,
+  
+  categoryname:String,
+  
+ 
 });
 
- // create Category name
- router.post('/createCategory', function(req, res, next) {
-  vendorModel.create(req.body).then((vendor)=>{
-    res.send(vendor);
-  }).catch((e)=>{
-    res.send("Error",e);
-  })
+const category  =mongoose.model("categories",categorySechema);
+
+// read category
+router.get('/categoryList', async function(req, res, next){
+  try{
+    const categoryList = await category.find()
+    console.log(categoryList);
+    res.send(categoryList);
+  }
+    catch(er){
+      res.send({
+        message:"No category list available"
+      })
+    }
+  });
+
+
+ // create Category 
+ router.post('/category',async function(req,res,next){
+  try{
+    let categories = await category.create(req.body)
+    console.log(categories);
+    res.send({
+      message:"category created",categories})
+  }
+  catch(err){
+    res.send({
+      message:"category is ot created"
+    })
+  }
 });
+
 
 // get vendors list
 
