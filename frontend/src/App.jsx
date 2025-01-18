@@ -10,6 +10,7 @@ function App() {
   
   return (
     <>
+    <BrowserRouter>
     <Routes>
     <Route path='/' element={<Signup/>}></Route>
     <Route path='/Landing' element={<Landing/>}></Route>
@@ -17,7 +18,7 @@ function App() {
       <Route path='/dashboard' element={<Dashboard/>}></Route>
     </Routes>
        
-    
+    </BrowserRouter>
     </>
   )
 }
