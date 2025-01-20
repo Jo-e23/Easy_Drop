@@ -61,7 +61,7 @@ router.get('/login', function(req, res, next) {
 
 //Category Schema
 const categorySechema = new Schema({
-  id:ObjectId,
+  id:String,
   
   categoryname:String,
   
@@ -101,7 +101,63 @@ router.get('/categoryList', async function(req, res, next){
 });
 
 
-// get vendors list
+
+//Product Schema
+const productSchema = new Schema({
+  ProductId:String,
+  name:{
+    required:true,
+    type:String
+  },
+  quantity:{
+    required:true,
+    type:String
+  },
+  price:{
+    required:true,
+    type:Number
+  },
+  categoryId:{
+    required:true,
+    type:String,
+    ref:'category'
+
+  },
+  image:{
+    required:true,
+    type:String
+  }
+});
+const productModel = mongoose.model('products',productSchema);
+
+//create product details
+router.post('/product',async function(req,res,next){
+  try{
+    let product = await productModel.create(req.body);
+    console.log(product);
+    res.send(product);
+  }
+catch(er){
+  res.send({
+    message:"product is not created"
+  })
+}
+})
+// get product details list
+router.get('/productList',async function(req,res,next){
+  try{
+  const productList = await productModel.find()
+  console.log(productList);
+  res.send(productList);
+  }
+  catch(er){
+    res.send({
+      message:"No products available"
+    })
+  }
+});
+
+
 
 
 
